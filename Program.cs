@@ -43,7 +43,21 @@
 
         static void ExecHumanite()
         {
-            Console.WriteLine("Fonctionnalité à venir ....");
+            util.titre("L'humanité");
+
+            Humain h1 = new Humain("Albert", new DateTime(1881, 1, 1));
+            h1.Afficher();
+
+            Humain h2 = new Humain("Béatrice", DateTime.Now);
+            h2.Afficher();
+
+            Console.WriteLine("Nom de h1:" + h1.getNom());
+            h1.setNom("Alberto");
+            h1.Afficher();
+
+
+
+
             util.pause();
             string[] param = new string[1];
             Main(param);
