@@ -1,29 +1,42 @@
-﻿using System;
+﻿//---------------------------------
+//   Fichier : financier.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-01-31
+//---------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace atelier2C6_102_2024
+namespace Atelier2C6_102_2024
 {
-    internal class financier
+    internal class Financier
     {
-        double detteInitiale;
+        double _detteInitiale;
 
+        //----------------------
+        //
+        //---------------------
         public void Executer()
         {
             bool go = true;
             while (go)
             {
-                util.titre("Le financier\n----------------------");
+                Util.Titre("Le Financier");
                 AfficherMenu();
                 string option  =ExecuterChoix();
                 if (option == "Q")
+                {
                     go = false;
+                }
             }
 
         }
 
+        //----------------------
+        //
+        //---------------------
         void AfficherMenu()
         {
             Console.WriteLine("D- Dette rempoursement ");
@@ -32,9 +45,12 @@ namespace atelier2C6_102_2024
             Console.Write("Votre choix:");
         }
 
+        //----------------------
+        //
+        //---------------------
         string ExecuterChoix()
         {
-            char choix = util.SaisirChar();
+            char choix = Util.SaisirChar();
             string option = choix.ToString().ToUpper();
 
             bool retour = false;
@@ -51,39 +67,47 @@ namespace atelier2C6_102_2024
                 default:
                     break;
             }
-            util.pause();
+            Util.Pause();
             return option;
         }
 
+        //----------------------
+        //
+        //---------------------
         void CalculerPlacement()
         {
             Console.WriteLine("Placement... à venir");
-            util.pause();
+            Util.Pause();
         }
 
-        void saisirParametres()
+        //----------------------
+        //
+        //---------------------
+        void SaisirParametres()
         {
-            detteInitiale = util.saisirUnDouble("Montant de la dette");
+            _detteInitiale = Util.SaisirUnDouble("Montant de la dette");
             //Console.WriteLine("Votre dette saisie:" + dette + "$");
         }
 
 
+        //----------------------
+        //
+        //---------------------
         public void CalculerDette()
         {
-            saisirParametres();
+            SaisirParametres();
 
             double tauxInteretAnnuel = 0.21;
             double tauxInteretMensuel = tauxInteretAnnuel / 12;
 
-            Console.WriteLine("Dette initiale:" + detteInitiale + "$\nTaux intérêt annuel:" + tauxInteretAnnuel);
+            Console.WriteLine("Dette initiale:" + _detteInitiale + "$\nTaux intérêt annuel:" + tauxInteretAnnuel);
 
-            bool go = true;
             int mois = 1;
 
             double interetCum = 0;
             double paiementCum = 0;
-            double solde = detteInitiale;
-            while (go)
+            double solde = _detteInitiale;
+            while (solde > 1)
             {
                 double paiementMin = 0.04 * solde;
                 double interetCourant = solde * tauxInteretMensuel;
@@ -101,11 +125,6 @@ namespace atelier2C6_102_2024
                 }
                 solde -= paiementMin - interetCourant;
                 mois++;
-
-
-
-                if (solde < 1)
-                    go = false;
             }
         }
 

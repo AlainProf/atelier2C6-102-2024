@@ -1,26 +1,40 @@
-﻿namespace atelier2C6_102_2024
+﻿//---------------------------------
+//   Fichier : Program.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-01-31
+//---------------------------------
+
+namespace Atelier2C6_102_2024
 {
     internal class Program
     {
+        //----------------------
+        //
+        //---------------------
         static void Main(string[] args)
         {
-            util.titre("Atelier du cours 2C6 gr 102\n__________________________________");
+            Util.Titre("Atelier du cours 2C6 gr 102");
 
             AfficherMenu();
             ExecuterChoix();
         }
 
+        //----------------------
+        //
+        //---------------------
         static void ExecuterChoix()
         {
-            char choix = util.SaisirChar();
-            string option = choix.ToString().ToUpper();   
+           char choix = Util.SaisirChar();
+            string option = choix.ToString().ToUpper();
 
 
-            switch(option)
+            switch (option)
             {
                 case "F":
+                  
                     ExecFinancier();
                     break;
+            
                 case "H":
                     ExecHumanite();
                     break;
@@ -32,37 +46,52 @@
 
         }
 
+        //----------------------
+        //
+        //---------------------
         static void ExecFinancier()
         {
-            financier fin = new financier();
+            Financier fin = new Financier();
             fin.Executer();
 
             string[] param = new string[1];
             Main(param);
         }
 
+        //----------------------
+        //
+        //---------------------
         static void ExecHumanite()
         {
-            util.titre("L'humanité");
+            Util.Titre("L'humanité");
 
             Humain h1 = new Humain("Albert", new DateTime(1881, 1, 1));
             h1.Afficher();
+            Humain h4 = new Humain("Tristan", new DateTime(2005, 11, 15));
+            h4.Afficher();
 
-            Humain h2 = new Humain("Béatrice", DateTime.Now);
+            Humain h2 = new Humain("Béatrice");
             h2.Afficher();
 
-            Console.WriteLine("Nom de h1:" + h1.getNom());
-            h1.setNom("Alberto");
+
+            Humain h3 = new Humain();
+            h3.Afficher();
+
+            Console.WriteLine("Nom de h1:" + h1.GetNom());
+            h1.SetNom("Alberto");
             h1.Afficher();
 
 
 
 
-            util.pause();
+            Util.Pause();
             string[] param = new string[1];
             Main(param);
         }
 
+        //----------------------
+        //
+        //---------------------
         static void AfficherMenu()
         {
             Console.WriteLine("f- Le Financier");
