@@ -15,6 +15,8 @@ namespace Atelier2C6_102_2024
     {
         private string _nom;
         private DateTime _naissance;
+        private DateTime _deces;
+
 
         //----------------------
         //
@@ -65,6 +67,9 @@ namespace Atelier2C6_102_2024
             _nom = n;
         }
 
+        //----------------------
+        //
+        //---------------------
         private int Age()
         {
             double delta = DateTime.Now.Ticks - _naissance.Ticks;
@@ -73,7 +78,15 @@ namespace Atelier2C6_102_2024
             return (int)deltaInt;
 
             //Console.WriteLine(_naissance.Ticks/
-                    }
+        }
+
+        //----------------------
+        //
+        //---------------------
+        public void Mourir()
+        {
+            _deces = DateTime.Now;
+        }
 
 
     }
