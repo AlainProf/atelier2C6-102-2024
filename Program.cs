@@ -34,15 +34,43 @@ namespace Atelier2C6_102_2024
                   
                     ExecFinancier();
                     break;
-            
+
                 case "H":
                     ExecHumanite();
                     break;
+
+                case "T":
+                    ExploTableau.Exec();
+                    break;
+
+                case "L":
+                    ExploListe.Exec();
+                    break;
+
+                case "S":
+                    ExploStatic();
+                    break;
+
+
                 case "Q":
                 default:
                     Environment.Exit(0);    
                     break;
             }
+
+        }
+
+        //----------------------
+        //
+        //---------------------
+        static void ExploStatic()
+        {
+            Humain h1 = new Humain();
+            Humain h2 = new Humain("Alice");
+            Humain h3 = new Humain("Benoit", new DateTime(1963,9,23));
+            Humain h4 = new Humain("Charlotte", new DateTime(2021,1,1));
+
+            Console.WriteLine("Nb humain instancié:" + Humain.compteur);
 
         }
 
@@ -94,9 +122,13 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void AfficherMenu()
         {
-            Console.WriteLine("f- Le Financier");
-            Console.WriteLine("h- Humanité");
-            Console.WriteLine("q- Quitter");
+            Console.WriteLine("F- Le Financier");
+            Console.WriteLine("H- Humanité");
+            Console.WriteLine("T- Tableau (array)");
+            Console.WriteLine("L- Liste (array)");
+            Console.WriteLine("S- Differnce entre static et non-static");
+            Console.WriteLine();
+            Console.WriteLine("Q- Quitter");
             Console.Write("Votre choix:");
         }
 

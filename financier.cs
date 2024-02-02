@@ -53,8 +53,7 @@ namespace Atelier2C6_102_2024
             char choix = Util.SaisirChar();
             string option = choix.ToString().ToUpper();
 
-            bool retour = false;
-
+            
             switch (option)
             {
                 case "D":

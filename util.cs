@@ -61,7 +61,7 @@ namespace Atelier2C6_102_2024
         public static double SaisirUnDouble(string nomDuDouble)
         {
             Console.WriteLine(nomDuDouble + ":");
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
 
 
             if (double.TryParse(input, out double resultat))
@@ -70,6 +70,15 @@ namespace Atelier2C6_102_2024
             }
             else
                 return 0.0;
+        }
+
+        public void Sep(string msg)
+        {
+            Console.WriteLine("------------" + msg + "------------");
+        }
+        public static void SepST(string msg)
+        {
+            Console.WriteLine("______________" + msg + "*************");
         }
 
 

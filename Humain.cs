@@ -17,6 +17,8 @@ namespace Atelier2C6_102_2024
         private DateTime _naissance;
         private DateTime _deces;
 
+        static public int compteur = 0;
+
 
         //----------------------
         //
@@ -25,6 +27,7 @@ namespace Atelier2C6_102_2024
         {
             _nom = "inconnu";
             _naissance = new DateTime(1,1,1);
+            compteur++;
         }
         //----------------------
         //
@@ -33,6 +36,8 @@ namespace Atelier2C6_102_2024
         {
             _nom = n;
             _naissance = DateTime.Now;
+            compteur++;
+
         }
 
         //----------------------
@@ -42,6 +47,8 @@ namespace Atelier2C6_102_2024
         {
             _nom = n;
             _naissance = nais;
+            compteur++;
+
         }
 
         //----------------------
@@ -55,8 +62,16 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public string GetNom()        {
+        public string GetNom()
+        {
             return _nom;
+        }
+        //----------------------
+        //
+        //---------------------
+        public DateTime GetNaissance()
+        {
+            return _naissance;
         }
 
         //----------------------
