@@ -105,8 +105,8 @@ namespace Atelier2C6_102_2024
             Humain h3 = new Humain();
             h3.Afficher();
 
-            Console.WriteLine("Nom de h1:" + h1.GetNom());
-            h1.SetNom("Alberto");
+            Console.WriteLine("Nom de h1:" + h1._Nom);
+            h1._Nom = "Alberto";
             h1.Afficher();
 
 
