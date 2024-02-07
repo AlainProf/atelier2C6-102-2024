@@ -22,6 +22,22 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
+       static void AfficherMenu()
+        {
+            Console.WriteLine("F- Le Financier");
+            Console.WriteLine("H- Humanité");
+            Console.WriteLine("T- Tableau (array)");
+            Console.WriteLine("L- Liste (array)");
+            Console.WriteLine("S- Differnce entre static et non-static");
+            Console.WriteLine("C- Chargement de fichiers en mémoire");
+
+            Console.WriteLine();
+            Console.WriteLine("Q- Quitter");
+            Console.Write("Votre choix:");
+        }
+        //----------------------
+        //
+        //---------------------
         static void ExecuterChoix()
         {
            char choix = Util.SaisirChar();
@@ -49,6 +65,10 @@ namespace Atelier2C6_102_2024
 
                 case "S":
                     ExploStatic();
+                    break;
+
+                case "C":
+                    ExploFichier.Exec();
                     break;
 
 
@@ -117,20 +137,6 @@ namespace Atelier2C6_102_2024
             Main(param);
         }
 
-        //----------------------
-        //
-        //---------------------
-        static void AfficherMenu()
-        {
-            Console.WriteLine("F- Le Financier");
-            Console.WriteLine("H- Humanité");
-            Console.WriteLine("T- Tableau (array)");
-            Console.WriteLine("L- Liste (array)");
-            Console.WriteLine("S- Differnce entre static et non-static");
-            Console.WriteLine();
-            Console.WriteLine("Q- Quitter");
-            Console.Write("Votre choix:");
-        }
 
 
     }
