@@ -30,6 +30,8 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("L- Liste (array)");
             Console.WriteLine("S- Differnce entre static et non-static");
             Console.WriteLine("C- Chargement de fichiers en mémoire");
+            Console.WriteLine("R- ref et out pratique");
+            Console.WriteLine("X- TicTacToe");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -71,13 +73,52 @@ namespace Atelier2C6_102_2024
                     ExploFichier.Exec();
                     break;
 
+                case "R":
+                    ExploRefETOut();
+                    break;
+
+                case "X":
+                    PartieTicTacToe pTTT = new PartieTicTacToe();
+                    pTTT.Jouer();
+                    break;
+
 
                 case "Q":
                 default:
                     Environment.Exit(0);    
                     break;
             }
+        }
 
+        //----------------------
+        //
+        //---------------------
+        static void ExploRefETOut()
+        {
+            Util.Titre("Essai avec ref et out");
+            int p = 10;
+
+            Console.WriteLine($"Valeur initiale de p:{p}");
+            f1(p);
+            Console.WriteLine($"Valeur post f1  de p:{p}");
+            f2(ref p);
+            Console.WriteLine($"Valeur post f2  de p:{p}");
+            f3(p, out int pOut);
+            Console.WriteLine($"Valeur post f3  de pOut:{pOut}");
+        }
+
+        static void f1(int p)
+        {
+            p++;
+        }
+        static void f2(ref int p)
+        {
+            p++;
+        }
+        static void f3(int p, out int p1)
+        {
+            p1 = p;
+            p1++;
         }
 
         //----------------------
