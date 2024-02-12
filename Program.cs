@@ -4,6 +4,8 @@
 //   Date    : 2024-01-31
 //---------------------------------
 
+using Atelier2C6_102_2024.Connect4;
+
 namespace Atelier2C6_102_2024
 {
     internal class Program
@@ -32,6 +34,8 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("C- Chargement de fichiers en mémoire");
             Console.WriteLine("R- ref et out pratique");
             Console.WriteLine("X- TicTacToe");
+            Console.WriteLine("O- Connect4");
+            Console.WriteLine("D- Dessiner à l'écran");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -80,6 +84,16 @@ namespace Atelier2C6_102_2024
                 case "X":
                     PartieTicTacToe pTTT = new PartieTicTacToe();
                     pTTT.Jouer();
+                    break;
+
+                case "O":
+                    PartieConnect4 partieConn4 = new PartieConnect4();
+                    partieConn4.Jouer();
+                    break;
+
+                case "D":
+                    Ecran monEcran = new Ecran();
+                    monEcran.Exec();
                     break;
 
 
