@@ -77,6 +77,22 @@ namespace Atelier2C6_102_2024
 
         }
 
+        public static int ComparerAge(Humain humA, Humain humB)
+        {
+            if (humA._Naissance < humB._Naissance)
+                return -1;
+            if (humA._Naissance > humB._Naissance)
+                return 1;
+            return 0;
+
+        }
+
+        public static int comparerNom(Humain humA, Humain humB)
+        {
+            return humA._Nom.CompareTo(humB._Nom);
+        }
+
+
         //----------------------
         //
         //---------------------

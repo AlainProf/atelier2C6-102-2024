@@ -13,6 +13,18 @@ namespace Atelier2C6_102_2024
 {
     internal class Util
     {
+        public static Random rdm = new Random();
+
+        public static string[] tabNoms = new string[] { "Layah", "Claude", "Pierre", "Tristan", "Olivier", "Miguel", "Simon", "Xavier", "Jolan", "Samael" };
+
+        public const int ERR_DATE_CORROMPUE = -1;
+        public const int ERR_ANNEE_HORS_LIMITE = -2;
+        public const int ERR_ANNEE_CORROMPUE = -3;
+        public const int ERR_MOIS_HORS_LIMITE = -4;
+        public const int ERR_MOIS_CORROMPU = -5;
+        public const int ERR_JOUR_HORS_LIMITE = -6;
+        public const int ERR_JOUR_CORROMPU = -7;
+
         //----------------------
         //
         //---------------------

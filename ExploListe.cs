@@ -11,7 +11,7 @@ namespace Atelier2C6_102_2024
         static List<int> listeEntiers = new List<int>();
         static List<Humain> listeHumains = new List<Humain>();
 
-        static string[] tabNoms = new string[10];
+        
 
         static int NB_ELEMENT = 10;
         static Random r = new Random();
@@ -20,16 +20,7 @@ namespace Atelier2C6_102_2024
         {
             Util.Titre("Exploration des listes en C#");
 
-            tabNoms[0] = "Layah";
-            tabNoms[1] = "Claude";
-            tabNoms[2] = "Pierre";
-            tabNoms[3] = "Tristan";
-            tabNoms[4] = "Olivier";
-            tabNoms[5] = "Miguel";
-            tabNoms[6] = "Simon";
-            tabNoms[7] = "Xavier";
-            tabNoms[8] = "Jolan";
-            tabNoms[9] = "Samael";
+           
 
             //ExploListeEntier();
             ExploListeHumain();
@@ -39,7 +30,7 @@ namespace Atelier2C6_102_2024
         {
             for (int i = 0; i < NB_ELEMENT; i++)
             {
-                listeHumains.Add(new Humain(tabNoms[r.Next(0,10)], new DateTime(r.Next(1964, 2024), r.Next(1, 13), r.Next(1, 29))));
+                listeHumains.Add(new Humain(Util.tabNoms[r.Next(0,10)], new DateTime(r.Next(1964, 2024), r.Next(1, 13), r.Next(1, 29))));
             }
 
             listeHumains[0]._Residence = new Adresse("1234", "Cartier", "Laval", "Québec", "H1H1H1");

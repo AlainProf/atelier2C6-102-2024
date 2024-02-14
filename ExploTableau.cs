@@ -24,16 +24,7 @@ namespace Atelier2C6_102_2024
         {
             Util.Titre("Exploration des tableaux (array) en C#");
 
-            tabNoms[0] = "Layah";
-            tabNoms[1] = "Claude";
-            tabNoms[2] = "Pierre";
-            tabNoms[3] = "Tristan";
-            tabNoms[4] = "Olivier";
-            tabNoms[5] = "Miguel";
-            tabNoms[6] = "Simon";
-            tabNoms[7] = "Xavier";
-            tabNoms[8] = "Jolan";
-            tabNoms[9] = "Samael";
+            
 
 
             // ExploTabEntier();

@@ -15,6 +15,8 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void Main(string[] args)
         {
+            Ecran ecran = new Ecran();
+            ecran.Init(0,15);
             Util.Titre("Atelier du cours 2C6 gr 102");
 
             AfficherMenu();
@@ -31,7 +33,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("T- Tableau (array)");
             Console.WriteLine("L- Liste (array)");
             Console.WriteLine("S- Differnce entre static et non-static");
-            Console.WriteLine("C- Chargement de fichiers en mémoire");
+            Console.WriteLine("C- Création et/ou Chargement de fichiers");
             Console.WriteLine("R- ref et out pratique");
             Console.WriteLine("X- TicTacToe");
             Console.WriteLine("O- Connect4");
