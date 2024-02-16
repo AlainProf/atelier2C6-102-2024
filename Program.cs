@@ -15,18 +15,35 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void Main(string[] args)
         {
-            Ecran ecran = new Ecran();
-            ecran.Init(0,15);
-            Util.Titre("Atelier du cours 2C6 gr 102");
+            try
+            {
+                Ecran ecran = new Ecran();
+                ecran.Init(0, 15);
+                Util.Titre("Atelier du cours 2C6 gr 102");
 
-            AfficherMenu();
-            ExecuterChoix();
+                AfficherMenu();
+                ExecuterChoix();
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                Console.WriteLine("Une exception est survenue: " + e.Message);
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine("Une exception est survenue");
+            }
+            finally
+            {
+                Console.WriteLine("Au revoir");    
+            }
+
+
         }
 
         //----------------------
         //
         //---------------------
-       static void AfficherMenu()
+        static void AfficherMenu()
         {
             Console.WriteLine("F- Le Financier");
             Console.WriteLine("H- Humanité");
@@ -38,6 +55,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("X- TicTacToe");
             Console.WriteLine("O- Connect4");
             Console.WriteLine("D- Dessiner à l'écran");
+            Console.WriteLine("E- HEritage");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -98,12 +116,39 @@ namespace Atelier2C6_102_2024
                     monEcran.Exec();
                     break;
 
+                case "E":
+                    ExecHeritage();
+                    break;
+
 
                 case "Q":
                 default:
                     Environment.Exit(0);    
                     break;
             }
+        }
+
+
+        //----------------------
+        //
+        //---------------------
+        static void ExecHeritage()
+        {
+            Util.Titre("Héritage en C#");
+
+            Etudiant etuA = new Etudiant();
+            Etudiant etuB = new Etudiant("Apolonius");
+            Etudiant etuC = new Etudiant("Benoite", new DateTime(1964, 6, 1));
+            Etudiant etuD = new Etudiant("Cléophas", new DateTime(1964, 6, 1), "24066944");
+
+            etuA.Afficher();
+            etuB.Afficher();
+            etuC.Afficher();
+            etuD.Afficher();
+
+            Universitaire etuU = new Universitaire();
+            etuU.Afficher();
+
         }
 
         //----------------------
@@ -182,8 +227,8 @@ namespace Atelier2C6_102_2024
             Humain h3 = new Humain();
             h3.Afficher();
 
-            Console.WriteLine("Nom de h1:" + h1._Nom);
-            h1._Nom = "Alberto";
+            //Console.WriteLine("Nom de h1:" + h1._Nom);
+            //h1._Nom = "Alberto";
             h1.Afficher();
 
 

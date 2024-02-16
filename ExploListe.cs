@@ -70,7 +70,8 @@ namespace Atelier2C6_102_2024
         }
         static int comparerHumain(Humain humA, Humain humB)
         {
-            return humA._Nom.CompareTo(humB._Nom);
+            return 0;
+           // return humA._Nom.CompareTo(humB._Nom);
         }
 
 

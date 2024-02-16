@@ -13,7 +13,7 @@ namespace Atelier2C6_102_2024
 {
     internal class Humain
     {
-        public string _Nom { get; set; }
+        protected string _Nom { get; set; }
         public DateTime _Naissance { get; set; }
         public DateTime _Deces { get; set; }
         public Adresse _Residence { get; set; }
@@ -98,6 +98,8 @@ namespace Atelier2C6_102_2024
         //---------------------
         public void Afficher()
         {
+            Console.WriteLine("Aff de humain");
+
             Console.WriteLine(_Nom + " né le " + _Naissance.ToShortDateString() + ", " + Age() + " ans"); 
             if (_Residence._NumCivique != "0")
                 _Residence.Afficher();  

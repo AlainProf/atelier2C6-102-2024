@@ -14,9 +14,10 @@ namespace Atelier2C6_102_2024
 
         public static void Exec()
         {
-            Util.Titre("Production d'une liste sur fichier");
-            //EcritureDUneListe();
-            LectureDUneListe();
+            
+                Util.Titre("Production d'une liste sur fichier");
+                //EcritureDUneListe();
+                LectureDUneListe();
         }
 
 
@@ -46,45 +47,50 @@ namespace Atelier2C6_102_2024
         {
             Util.Titre("Chargement d'un fichier en mémoire en C#");
 
-            if (File.Exists(FICHIER_POPULATION))
-            {
-                StreamReader reader = File.OpenText(FICHIER_POPULATION);
-                int numLigne = 0;
-                int humCharges = 0;
-                string ligneCourante;
-
-                while(reader.Peek() > -1)
+                if (File.Exists(FICHIER_POPULATION))
                 {
-                    numLigne++;
-                    ligneCourante = reader.ReadLine();
-                    //Console.WriteLine($"{numLigne} : {ligneCourante}");
+                    StreamReader reader = File.OpenText(FICHIER_POPULATION);
+                    int numLigne = 0;
+                    int humCharges = 0;
+                    string ligneCourante;
+                    int codeErr = 0;
 
-                    if (ParsingHumain(ligneCourante, out Humain humain))
+                    while (reader.Peek() > -1)
                     {
-                        humCharges++;   
-                        _listeHumains.Add(humain);
+                        numLigne++;
+                        ligneCourante = reader.ReadLine();
+                        //Console.WriteLine($"{numLigne} : {ligneCourante}");
+
+                        if (ParsingHumain(ligneCourante, out Humain humain, ref codeErr))
+                        {
+                            humCharges++;
+                            _listeHumains.Add(humain);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Erreur {codeErr} ({(Util.ERREUR_CODE)codeErr}) à la ligne{numLigne}: {ligneCourante}");
+                        }
                     }
+
+                    _listeHumains.Sort(Humain.ComparerAge);
+                    Console.WriteLine("Liste chargée:");
+                    //AfficherListeHumain();
+                    Console.WriteLine($"{humCharges} ligne chargée correctement\n{numLigne} lignes lues\n{(double)(humCharges / numLigne) * (double)100}% d'efficacité");
+
+                    reader.Close();
                 }
-
-                _listeHumains.Sort(Humain.ComparerAge);
-                Console.WriteLine("Liste chargée:");
-                //AfficherListeHumain();
-                Console.WriteLine($"{humCharges} ligne chargée correctement\n{numLigne} lignes lues\n{(double)(humCharges/numLigne)*(double)100}% d'efficacité");
-
-                reader.Close(); 
-            }
-            else
-            {
-                Console.WriteLine("ERREUR...");
-            }
+                else
+                {
+                    Console.WriteLine("ERREUR...");
+                }
         }
 
-   
 
-        static bool ParsingHumain(string infoBrute, out Humain humain)
+
+        static bool ParsingHumain(string infoBrute, out Humain humain, ref int codeErr)
         {
             humain = new Humain();
-            int codeErr = 0;
+            
             int nbChamps = compteurChamps(infoBrute);
 
             if (nbChamps == 0)
@@ -135,7 +141,7 @@ namespace Atelier2C6_102_2024
 
             if (tabDateBrute.Length < 3) 
             {
-                codeErr = Util.ERR_DATE_CORROMPUE;
+                codeErr = (int)Util.ERREUR_CODE.ERR_DATE_CORROMPUE;
                 return false;
             }
 
@@ -143,13 +149,13 @@ namespace Atelier2C6_102_2024
             {
                 if (an > 9999 || an < 1)
                 {
-                    codeErr = Util.ERR_ANNEE_HORS_LIMITE;
+                    codeErr = (int)Util.ERREUR_CODE.ERR_ANNEE_HORS_LIMITE;
                     return false;
                 }
             }
             else
             {
-                codeErr = Util.ERR_ANNEE_CORROMPUE;
+                codeErr = (int)Util.ERREUR_CODE.ERR_ANNEE_CORROMPUE;
                 return false;
             }
 
@@ -157,13 +163,13 @@ namespace Atelier2C6_102_2024
             {
                 if (mois > 12 || mois < 1)
                 {
-                    codeErr = Util.ERR_MOIS_HORS_LIMITE;
+                    codeErr = (int)Util.ERREUR_CODE.ERR_MOIS_HORS_LIMITE;
                     return false;
                 }  
             }
             else
             {
-                codeErr = Util.ERR_MOIS_CORROMPU;
+                codeErr = (int)Util.ERREUR_CODE.ERR_MOIS_CORROMPU;
                 return false;
             }
 
@@ -171,13 +177,13 @@ namespace Atelier2C6_102_2024
             {
                 if (jour > 28 || jour < 1)
                 {
-                    codeErr = Util.ERR_JOUR_HORS_LIMITE;
+                    codeErr = (int)Util.ERREUR_CODE.ERR_JOUR_HORS_LIMITE;
                     return false; 
                 }   
             }
             else
             {
-                codeErr = Util.ERR_JOUR_CORROMPU;
+                codeErr = (int)Util.ERREUR_CODE.ERR_JOUR_CORROMPU;
                 return false;
             }
 
