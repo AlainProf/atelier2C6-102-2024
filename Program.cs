@@ -5,18 +5,23 @@
 //---------------------------------
 
 using Atelier2C6_102_2024.Connect4;
+using System.ComponentModel.Design;
 
 namespace Atelier2C6_102_2024
 {
     internal class Program
     {
+        static int nbRangees;
+        static int nbColonnes;
         //----------------------
         //
         //---------------------
         static void Main(string[] args)
         {
+            bool ExecOK = true;
             try
             {
+                TraiterParamDExec(args);
                 Ecran ecran = new Ecran();
                 ecran.Init(0, 15);
                 Util.Titre("Atelier du cours 2C6 gr 102");
@@ -24,19 +29,61 @@ namespace Atelier2C6_102_2024
                 AfficherMenu();
                 ExecuterChoix();
             }
+
+            catch(FormatException e)
+            {
+                ExecOK = false;
+                Console.WriteLine("La valeur fournie ne peut être convertie: " + e.Message);
+            }
+
+            catch (ArgumentOutOfRangeException e)
+            {
+                ExecOK = false;
+                Console.WriteLine("L'indice d'un tableau dépassait la taille du tableau : " + e.ToString());
+            }
+
             catch (System.IO.FileNotFoundException e)
             {
-                Console.WriteLine("Une exception est survenue: " + e.Message);
+                ExecOK = false;
+                Console.WriteLine("Une exception est survenue: " + e.ToString());
             }
             catch (System.Exception e)
             {
-                Console.WriteLine("Une exception est survenue");
+                ExecOK = false;
+                Console.WriteLine($"Une exception est survenue: {e.ToString()}");
             }
             finally
             {
-                Console.WriteLine("Au revoir");    
+                if (ExecOK)
+                   Console.WriteLine("\nAu revoir!");
+                else
+                    Console.WriteLine(" Une ERREUR s'est produite... ");
             }
+        }
 
+
+        static void TraiterParamDExec(string[] tabParam)
+        {
+            return; 
+            Console.WriteLine($"{ Console.WindowWidth} colonnes de large\n{Console.WindowHeight} rangées de haut");
+            Util.Pause();
+            for(int i=0; i<tabParam.Length; i++)
+            {
+                Console.WriteLine(tabParam[i]);
+            }
+            Util.Pause();
+
+            nbRangees = int.Parse(tabParam[1]);
+            nbColonnes = int.Parse(tabParam[0]);
+
+            if (nbColonnes > Console.WindowWidth / 4)
+            {
+                throw (new Exception("param 1 trop élevé"));
+            }
+            if (nbRangees > Console.WindowHeight - 6)
+            {
+                throw (new Exception("param 2 trop élevé"));
+            }
 
         }
 
@@ -56,6 +103,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("O- Connect4");
             Console.WriteLine("D- Dessiner à l'écran");
             Console.WriteLine("E- HEritage");
+            Console.WriteLine("A- tAbleau2D");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -119,6 +167,9 @@ namespace Atelier2C6_102_2024
                 case "E":
                     ExecHeritage();
                     break;
+                case "A":
+                    ExecTab2D();
+                    break;
 
 
                 case "Q":
@@ -129,6 +180,28 @@ namespace Atelier2C6_102_2024
         }
 
 
+        //----------------------
+        //
+        //---------------------
+        static void ExecTab2D()
+        {
+            Util.Titre("Tableau en 2 dimensions");
+            Tableau2D tab2D = new Tableau2D(nbRangees, nbColonnes);
+            tab2D.Afficher();
+            Util.Pause();
+
+            tab2D.RemplirHorizontal();
+            tab2D.Afficher();
+            Util.Pause();
+
+            tab2D.RemplirVertical();
+            tab2D.Afficher();
+            Util.Pause();
+
+            tab2D.RemplirHasard();
+            tab2D.Afficher();
+            Util.Pause();
+        }
         //----------------------
         //
         //---------------------
