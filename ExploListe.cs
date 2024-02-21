@@ -11,7 +11,7 @@ namespace Atelier2C6_102_2024
         static List<int> listeEntiers = new List<int>();
         static List<Humain> listeHumains = new List<Humain>();
 
-        
+    
 
         static int NB_ELEMENT = 10;
         static Random r = new Random();
@@ -38,12 +38,14 @@ namespace Atelier2C6_102_2024
             AfficherListeHumain();
 
             Sep("Liste humains triée par nom");
-            listeHumains.Sort(comparerHumain);
+            listeHumains.Sort(Humain.comparerNom);
             AfficherListeHumain();
 
             Sep("Liste humains triée par age");
-            listeHumains.Sort(comparerAgeHumain);
+            listeHumains.Sort();
             AfficherListeHumain();
+
+            Util.Pause();
 
             Sep("Liste humains triée par une lambda");
             listeHumains.Sort((humA, humB) => { return humA._Naissance.CompareTo(humB._Naissance); });

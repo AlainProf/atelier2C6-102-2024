@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Atelier2C6_102_2024
 {
-    internal class Humain
+    internal class Humain : IComparable<Humain>
     {
         protected string _Nom { get; set; }
         public DateTime _Naissance { get; set; }
@@ -77,6 +77,15 @@ namespace Atelier2C6_102_2024
 
         }
 
+        public int CompareTo(Humain autre)
+        {
+            if (this._Naissance < autre._Naissance)
+                return -1;
+            if (this._Naissance > autre._Naissance)
+                return 1;
+            return 0;
+        }
+
         public static int ComparerAge(Humain humA, Humain humB)
         {
             if (humA._Naissance < humB._Naissance)
@@ -96,13 +105,20 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public void Afficher()
+        public void Afficher(bool complexe = false)
         {
-            Console.WriteLine("Aff de humain");
+            if (complexe)
+            {
+                Console.WriteLine("Aff de humain");
 
-            Console.WriteLine(_Nom + " né le " + _Naissance.ToShortDateString() + ", " + Age() + " ans"); 
-            if (_Residence._NumCivique != "0")
-                _Residence.Afficher();  
+                Console.WriteLine(_Nom + " né le " + _Naissance.ToShortDateString() + ", " + Age() + " ans");
+                if (_Residence._NumCivique != "0")
+                    _Residence.Afficher();
+            }
+            else
+            {
+                Console.WriteLine(_Nom + ", " + Age() + " ans");
+            }
         }
 
        

@@ -95,7 +95,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("F- Le Financier");
             Console.WriteLine("H- Humanité");
             Console.WriteLine("T- Tableau (array)");
-            Console.WriteLine("L- Liste (array)");
+            Console.WriteLine("L- Liste (list)");
             Console.WriteLine("S- Differnce entre static et non-static");
             Console.WriteLine("C- Création et/ou Chargement de fichiers");
             Console.WriteLine("R- ref et out pratique");
@@ -104,6 +104,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("D- Dessiner à l'écran");
             Console.WriteLine("E- HEritage");
             Console.WriteLine("A- tAbleau2D");
+            Console.WriteLine("P- Piles et Files (Stack & Queue)");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -171,6 +172,10 @@ namespace Atelier2C6_102_2024
                     ExecTab2D();
                     break;
 
+                case "P":
+                    ExecPileEtFile();
+                    break;
+
 
                 case "Q":
                 default:
@@ -179,6 +184,63 @@ namespace Atelier2C6_102_2024
             }
         }
 
+
+        //----------------------
+        //
+        //---------------------
+        static void ExecPileEtFile()
+        {
+            Util.Titre("Les piles et files avec C#");
+
+            Voiture vA = new Voiture();
+            Voiture vB = new Voiture();
+            Voiture vC = new Voiture();
+
+            vA._Modele = "Ferrari";
+            vA._Couleur = "rouge";
+            vB._Modele = "Honda Fit";
+            vB._Couleur = "bleue";
+            vC._Modele = "Hyundai Ionic";
+            vC._Couleur = "noir";
+
+            Queue<Voiture> laveAuto = new Queue<Voiture>();
+
+            laveAuto.Enqueue(vA);
+            laveAuto.Enqueue(vB);
+            laveAuto.Enqueue(vC);
+
+
+            Console.WriteLine("Ordre de sortie du lave auto:");
+            Voiture vPropre = laveAuto.Dequeue();
+            vPropre.Afficher();
+            vPropre = laveAuto.Dequeue();
+            vPropre.Afficher();
+            vPropre = laveAuto.Dequeue();
+            vPropre.Afficher();
+
+
+            Util.Pause();
+
+            Stack<Voiture> stationnement = new Stack<Voiture>();
+            stationnement.Push(vA);
+            stationnement.Push(vB);
+            stationnement.Push(vC);
+
+            Console.WriteLine("Ordre de sortie du stationnement:");
+
+            Voiture vQuittante = stationnement.Pop();
+            vQuittante.Afficher();  
+            vQuittante = stationnement.Pop();
+            vQuittante.Afficher();
+            vQuittante = stationnement.Pop();
+            vQuittante.Afficher();
+
+            Util.Pause();
+
+
+
+
+        }
 
         //----------------------
         //
