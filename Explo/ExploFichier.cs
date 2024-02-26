@@ -1,38 +1,59 @@
-﻿using System;
+﻿//---------------------------------
+//   Fichier : ExploFichier.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-02-26
+//---------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier2C6_102_2024.Classes;
 
-namespace Atelier2C6_102_2024
+namespace Atelier2C6_102_2024.Explo
 {
     internal class ExploFichier
     {
         const string FICHIER_POPULATION = @"d:\alainm\BD\population.txt";
-        static List<Humain> _listeHumains = new List<Humain>();
+        List<Humain> _listeHumains = new List<Humain>();
+
+        Util u;
 
 
-        public static void Exec()
+        //----------------------------------
+        //
+        //----------------------------------
+        public ExploFichier()
         {
-            
-                Util.Titre("Production d'une liste sur fichier");
-                //EcritureDUneListe();
-                LectureDUneListe();
+            u = new Util(); 
+        }
+
+        //----------------------------------
+        //
+        //----------------------------------
+        public void Exec()
+        {
+            u.Titre("Production d'une liste sur fichier");
+            //EcritureDUneListe();
+            LectureDUneListe();
         }
 
 
-        static void EcritureDUneListe()
+        //----------------------------------
+        //
+        //----------------------------------
+        void EcritureDUneListe()
         {
             StreamWriter writer = new StreamWriter(FICHIER_POPULATION);
             int NB_MAX = 100;
             int compteur = 0;
             StringBuilder infoHumain = new StringBuilder();
 
-            while(compteur < NB_MAX)
+            while (compteur < NB_MAX)
             {
-                infoHumain.Append(Util.tabNoms[Util.rdm.Next(0, 10)]);
+                infoHumain.Append(u.tabNoms[u.rdm.Next(0, 10)]);
 
-                DateTime naissance = new DateTime(Util.rdm.Next(1964, 2024), Util.rdm.Next(1, 13), Util.rdm.Next(1, 29));
+                DateTime naissance = new DateTime(u.rdm.Next(1964, 2024), u.rdm.Next(1, 13), u.rdm.Next(1, 29));
 
                 infoHumain.Append(";" + naissance.ToShortDateString());
                 writer.WriteLine(infoHumain);
@@ -43,54 +64,61 @@ namespace Atelier2C6_102_2024
             Console.WriteLine($"{compteur} humains générés");
         }
 
-        static void LectureDUneListe()
+        //----------------------------------
+        //
+        //----------------------------------
+        void LectureDUneListe()
         {
-            Util.Titre("Chargement d'un fichier en mémoire en C#");
+            u.Titre("Chargement d'un fichier en mémoire en C#");
 
-                if (File.Exists(FICHIER_POPULATION))
+            if (File.Exists(FICHIER_POPULATION))
+            {
+                StreamReader reader = File.OpenText(FICHIER_POPULATION);
+                int numLigne = 0;
+                int humCharges = 0;
+                string? ligneCourante;
+                int codeErr = 0;
+
+                while (reader.Peek() > -1)
                 {
-                    StreamReader reader = File.OpenText(FICHIER_POPULATION);
-                    int numLigne = 0;
-                    int humCharges = 0;
-                    string ligneCourante;
-                    int codeErr = 0;
+                    numLigne++;
+                    ligneCourante = reader.ReadLine();
+                    //Console.WriteLine($"{numLigne} : {ligneCourante}");
 
-                    while (reader.Peek() > -1)
+                    if (ParsingHumain(ligneCourante, out Humain humain, ref codeErr))
                     {
-                        numLigne++;
-                        ligneCourante = reader.ReadLine();
-                        //Console.WriteLine($"{numLigne} : {ligneCourante}");
-
-                        if (ParsingHumain(ligneCourante, out Humain humain, ref codeErr))
-                        {
-                            humCharges++;
-                            _listeHumains.Add(humain);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Erreur {codeErr} ({(Util.ERREUR_CODE)codeErr}) à la ligne{numLigne}: {ligneCourante}");
-                        }
+                        humCharges++;
+                        _listeHumains.Add(humain);
                     }
-
-                    _listeHumains.Sort(Humain.ComparerAge);
-                    Console.WriteLine("Liste chargée:");
-                    //AfficherListeHumain();
-                    Console.WriteLine($"{humCharges} ligne chargée correctement\n{numLigne} lignes lues\n{(double)(humCharges / numLigne) * (double)100}% d'efficacité");
-
-                    reader.Close();
+                    else
+                    {
+                        Console.WriteLine($"Erreur {codeErr} ({(Util.ERREUR_CODE)codeErr}) à la ligne{numLigne}: {ligneCourante}");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("ERREUR...");
-                }
+
+                _listeHumains.Sort(new Humain().ComparerAge);
+                Console.WriteLine("Liste chargée:");
+                //AfficherListeHumain();
+                Console.WriteLine($"{humCharges} ligne chargée correctement\n{numLigne} lignes lues\n{humCharges / numLigne * (double)100}% d'efficacité");
+
+                reader.Close();
+            }
+            else
+            {
+                Console.WriteLine("ERREUR...");
+            }
         }
 
-
-
-        static bool ParsingHumain(string infoBrute, out Humain humain, ref int codeErr)
+        //----------------------------------
+        //
+        //----------------------------------
+        bool ParsingHumain(string? infoBrute, out Humain humain, ref int codeErr)
         {
             humain = new Humain();
-            
+
+            if (infoBrute == null)
+                return false;
+
             int nbChamps = compteurChamps(infoBrute);
 
             if (nbChamps == 0)
@@ -112,18 +140,18 @@ namespace Atelier2C6_102_2024
                 }
                 else
                 {
-                    return false;   
+                    return false;
                 }
             }
 
             if (nbChamps == 7)
             {
                 string[] tabInfoBrute = infoBrute.Split(';');
-                
-                if (ParsingDate(tabInfoBrute[1], out DateTime naissance,ref codeErr))
+
+                if (ParsingDate(tabInfoBrute[1], out DateTime naissance, ref codeErr))
                 {
                     humain = new Humain(tabInfoBrute[0], naissance, new Adresse(tabInfoBrute[2], tabInfoBrute[3], tabInfoBrute[4], tabInfoBrute[5], tabInfoBrute[6]));
-                    return true;    
+                    return true;
                 }
                 else
                 {
@@ -134,12 +162,15 @@ namespace Atelier2C6_102_2024
             return false;
         }
 
-        static bool ParsingDate(string dateBrute, out DateTime naissance, ref int codeErr)
+        //----------------------------------
+        //
+        //----------------------------------
+        bool ParsingDate(string dateBrute, out DateTime naissance, ref int codeErr)
         {
             naissance = DateTime.MinValue;
             string[] tabDateBrute = dateBrute.Split("-");
 
-            if (tabDateBrute.Length < 3) 
+            if (tabDateBrute.Length < 3)
             {
                 codeErr = (int)Util.ERREUR_CODE.ERR_DATE_CORROMPUE;
                 return false;
@@ -165,7 +196,7 @@ namespace Atelier2C6_102_2024
                 {
                     codeErr = (int)Util.ERREUR_CODE.ERR_MOIS_HORS_LIMITE;
                     return false;
-                }  
+                }
             }
             else
             {
@@ -178,8 +209,8 @@ namespace Atelier2C6_102_2024
                 if (jour > 28 || jour < 1)
                 {
                     codeErr = (int)Util.ERREUR_CODE.ERR_JOUR_HORS_LIMITE;
-                    return false; 
-                }   
+                    return false;
+                }
             }
             else
             {
@@ -191,16 +222,19 @@ namespace Atelier2C6_102_2024
             return true;
         }
 
-        static int compteurChamps(string infoBrute)
+        //----------------------------------
+        //
+        //----------------------------------
+        int compteurChamps(string infoBrute)
         {
-            int nbChamps = 0;   
-            if (infoBrute.Length == 0) 
+            int nbChamps = 0;
+            if (infoBrute.Length == 0)
             {
                 return 0;
             }
 
             nbChamps++;
-            foreach(char ch in infoBrute)
+            foreach (char ch in infoBrute)
             {
                 if (ch == ';')
                     nbChamps++;
@@ -208,7 +242,10 @@ namespace Atelier2C6_102_2024
             return nbChamps;
         }
 
-        static void AfficherListeHumain()
+        //----------------------------------
+        //
+        //----------------------------------
+        void AfficherListeHumain()
         {
             for (int i = 0; i < _listeHumains.Count; i++)
             {

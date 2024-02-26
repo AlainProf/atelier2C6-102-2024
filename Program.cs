@@ -4,7 +4,10 @@
 //   Date    : 2024-01-31
 //---------------------------------
 
-using Atelier2C6_102_2024.Connect4;
+using Atelier2C6_102_2024.Applications;
+using Atelier2C6_102_2024.Applications.Connect4;
+using Atelier2C6_102_2024.Classes;
+using Atelier2C6_102_2024.Explo;
 using System.ComponentModel.Design;
 
 namespace Atelier2C6_102_2024
@@ -13,18 +16,20 @@ namespace Atelier2C6_102_2024
     {
         static int nbRangees;
         static int nbColonnes;
+        static Util u = new Util();
         //----------------------
         //
         //---------------------
         static void Main(string[] args)
         {
             bool ExecOK = true;
+            
             try
             {
                 TraiterParamDExec(args);
                 Ecran ecran = new Ecran();
                 ecran.Init(0, 15);
-                Util.Titre("Atelier du cours 2C6 gr 102");
+                u.Titre("Atelier du cours 2C6 gr 102");
 
                 AfficherMenu();
                 ExecuterChoix();
@@ -62,27 +67,33 @@ namespace Atelier2C6_102_2024
         }
 
 
+        //----------------------------------
+        //
+        //----------------------------------
         static void TraiterParamDExec(string[] tabParam)
         {
-            return; 
-            Console.WriteLine($"{ Console.WindowWidth} colonnes de large\n{Console.WindowHeight} rangées de haut");
-            Util.Pause();
-            for(int i=0; i<tabParam.Length; i++)
+            if (tabParam.Length > 0)
             {
-                Console.WriteLine(tabParam[i]);
-            }
-            Util.Pause();
 
-            nbRangees = int.Parse(tabParam[1]);
-            nbColonnes = int.Parse(tabParam[0]);
+                Console.WriteLine($"{Console.WindowWidth} colonnes de large\n{Console.WindowHeight} rangées de haut");
+                u.Pause();
+                for (int i = 0; i < tabParam.Length; i++)
+                {
+                    Console.WriteLine(tabParam[i]);
+                }
+                u.Pause();
 
-            if (nbColonnes > Console.WindowWidth / 4)
-            {
-                throw (new Exception("param 1 trop élevé"));
-            }
-            if (nbRangees > Console.WindowHeight - 6)
-            {
-                throw (new Exception("param 2 trop élevé"));
+                nbRangees = int.Parse(tabParam[1]);
+                nbColonnes = int.Parse(tabParam[0]);
+
+                if (nbColonnes > Console.WindowWidth / 4)
+                {
+                    throw (new Exception("param 1 trop élevé"));
+                }
+                if (nbRangees > Console.WindowHeight - 6)
+                {
+                    throw (new Exception("param 2 trop élevé"));
+                }
             }
 
         }
@@ -115,7 +126,7 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void ExecuterChoix()
         {
-           char choix = Util.SaisirChar();
+           char choix = u.SaisirChar();
             string option = choix.ToString().ToUpper();
 
 
@@ -131,11 +142,11 @@ namespace Atelier2C6_102_2024
                     break;
 
                 case "T":
-                    ExploTableau.Exec();
+                    ExploTableau();
                     break;
 
                 case "L":
-                    ExploListe.Exec();
+                    ExploListe();
                     break;
 
                 case "S":
@@ -143,7 +154,7 @@ namespace Atelier2C6_102_2024
                     break;
 
                 case "C":
-                    ExploFichier.Exec();
+                    ExploFichier();
                     break;
 
                 case "R":
@@ -184,13 +195,40 @@ namespace Atelier2C6_102_2024
             }
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
+        static void ExploTableau()
+        {
+            ExploTableau exploTableau = new ExploTableau();
+            exploTableau.Exec();
+
+        }
+        //----------------------------------
+        //
+        //----------------------------------
+        static void ExploListe()
+        {
+            ExploListe exploListe = new ExploListe();
+            exploListe.Exec();
+
+        }
+
+        //----------------------------------
+        //
+        //----------------------------------
+        static void ExploFichier()
+        {
+            ExploFichier exploFichier = new ExploFichier();
+            exploFichier.Exec();
+        }
 
         //----------------------
         //
         //---------------------
         static void ExecPileEtFile()
         {
-            Util.Titre("Les piles et files avec C#");
+            u.Titre("Les piles et files avec C#");
 
             Voiture vA = new Voiture();
             Voiture vB = new Voiture();
@@ -219,7 +257,7 @@ namespace Atelier2C6_102_2024
             vPropre.Afficher();
 
 
-            Util.Pause();
+            u.Pause();
 
             Stack<Voiture> stationnement = new Stack<Voiture>();
             stationnement.Push(vA);
@@ -235,11 +273,7 @@ namespace Atelier2C6_102_2024
             vQuittante = stationnement.Pop();
             vQuittante.Afficher();
 
-            Util.Pause();
-
-
-
-
+            u.Pause();
         }
 
         //----------------------
@@ -247,29 +281,29 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void ExecTab2D()
         {
-            Util.Titre("Tableau en 2 dimensions");
+            u.Titre("Tableau en 2 dimensions");
             Tableau2D tab2D = new Tableau2D(nbRangees, nbColonnes);
             tab2D.Afficher();
-            Util.Pause();
+            u.Pause();
 
             tab2D.RemplirHorizontal();
             tab2D.Afficher();
-            Util.Pause();
+            u.Pause();
 
             tab2D.RemplirVertical();
             tab2D.Afficher();
-            Util.Pause();
+            u.Pause();
 
             tab2D.RemplirHasard();
             tab2D.Afficher();
-            Util.Pause();
+            u.Pause();
         }
         //----------------------
         //
         //---------------------
         static void ExecHeritage()
         {
-            Util.Titre("Héritage en C#");
+            u.Titre("Héritage en C#");
 
             Etudiant etuA = new Etudiant();
             Etudiant etuB = new Etudiant("Apolonius");
@@ -291,7 +325,7 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void ExploRefETOut()
         {
-            Util.Titre("Essai avec ref et out");
+            u.Titre("Essai avec ref et out");
             int p = 10;
 
             Console.WriteLine($"Valeur initiale de p:{p}");
@@ -348,7 +382,7 @@ namespace Atelier2C6_102_2024
         //---------------------
         static void ExecHumanite()
         {
-            Util.Titre("L'humanité");
+            u.Titre("L'humanité");
 
             Humain h1 = new Humain("Albert", new DateTime(1881, 1, 1));
             h1.Afficher();
@@ -366,15 +400,9 @@ namespace Atelier2C6_102_2024
             //h1._Nom = "Alberto";
             h1.Afficher();
 
-
-
-
-            Util.Pause();
+            u.Pause();
             string[] param = new string[1];
             Main(param);
         }
-
-
-
     }
 }

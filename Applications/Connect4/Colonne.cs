@@ -1,17 +1,25 @@
-﻿using System;
+﻿//---------------------------------
+//   Fichier : Colonne.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-02-26
+//---------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier2C6_102_2024.Connect4
+namespace Atelier2C6_102_2024.Applications.Connect4
 {
     internal class Colonne
     {
         Case[] _cases = new Case[Grille.NB_RANGEES];
         int _numero;
 
+        //----------------------------------
+        //
+        //----------------------------------
         public Colonne(int n)
         {
             _numero = n;
@@ -22,6 +30,9 @@ namespace Atelier2C6_102_2024.Connect4
         }
 
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void Afficher()
         {
             foreach (Case uneCase in _cases)
@@ -30,6 +41,9 @@ namespace Atelier2C6_102_2024.Connect4
             }
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void InsererJeton(string joueur)
         {
             _cases[0]._Contenu = joueur;

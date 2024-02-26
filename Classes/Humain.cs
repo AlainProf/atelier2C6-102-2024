@@ -9,15 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier2C6_102_2024
+namespace Atelier2C6_102_2024.Classes
 {
     internal class Humain : IComparable<Humain>
     {
+        static public int compteur = 0;
         protected string _Nom { get; set; }
         public DateTime _Naissance { get; set; }
         public DateTime _Deces { get; set; }
         public Adresse _Residence { get; set; }
-
 
         /*
          * Property
@@ -28,17 +28,13 @@ namespace Atelier2C6_102_2024
             set { _deces = value }
         }*/
 
-
-        static public int compteur = 0;
-
-
         //----------------------
         //
         //---------------------
         public Humain()
         {
             _Nom = "inconnu";
-            _Naissance = new DateTime(1,1,1);
+            _Naissance = new DateTime(1, 1, 1);
             _Residence = new Adresse();
             compteur++;
         }
@@ -77,16 +73,24 @@ namespace Atelier2C6_102_2024
 
         }
 
-        public int CompareTo(Humain autre)
+        //----------------------------------
+        //
+        //----------------------------------
+        public int CompareTo(Humain? autre)
         {
-            if (this._Naissance < autre._Naissance)
+            if (autre == null)
+                return 1;
+            if (_Naissance < autre._Naissance)
                 return -1;
-            if (this._Naissance > autre._Naissance)
+            if (_Naissance > autre._Naissance)
                 return 1;
             return 0;
         }
 
-        public static int ComparerAge(Humain humA, Humain humB)
+        //----------------------------------
+        //
+        //----------------------------------
+        public int ComparerAge(Humain humA, Humain humB)
         {
             if (humA._Naissance < humB._Naissance)
                 return -1;
@@ -96,7 +100,10 @@ namespace Atelier2C6_102_2024
 
         }
 
-        public static int comparerNom(Humain humA, Humain humB)
+        //----------------------------------
+        //
+        //----------------------------------
+        public int comparerNom(Humain humA, Humain humB)
         {
             return humA._Nom.CompareTo(humB._Nom);
         }
@@ -121,18 +128,16 @@ namespace Atelier2C6_102_2024
             }
         }
 
-       
+
         //----------------------
         //
         //---------------------
         private int Age()
         {
             double delta = DateTime.Now.Ticks - _Naissance.Ticks;
-            int deltaInt = (int) (delta/ 10000000 / (365.24 * 24 * 60 * 60));
+            int deltaInt = (int)(delta / 10000000 / (365.24 * 24 * 60 * 60));
 
-            return (int)deltaInt;
-
-          
+            return deltaInt;
         }
 
         //----------------------
@@ -142,7 +147,5 @@ namespace Atelier2C6_102_2024
         {
             _Deces = DateTime.Now;
         }
-
-
     }
 }

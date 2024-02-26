@@ -9,11 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier2C6_102_2024
+namespace Atelier2C6_102_2024.Applications
 {
     internal class Financier
     {
         double _detteInitiale;
+        Util u = new Util();
 
         //----------------------
         //
@@ -23,9 +24,9 @@ namespace Atelier2C6_102_2024
             bool go = true;
             while (go)
             {
-                Util.Titre("Le Financier");
+                u.Titre("Le Financier");
                 AfficherMenu();
-                string option  =ExecuterChoix();
+                string option = ExecuterChoix();
                 if (option == "Q")
                 {
                     go = false;
@@ -50,10 +51,10 @@ namespace Atelier2C6_102_2024
         //---------------------
         string ExecuterChoix()
         {
-            char choix = Util.SaisirChar();
+            char choix = u.SaisirChar();
             string option = choix.ToString().ToUpper();
 
-            
+
             switch (option)
             {
                 case "D":
@@ -66,7 +67,7 @@ namespace Atelier2C6_102_2024
                 default:
                     break;
             }
-            Util.Pause();
+            u.Pause();
             return option;
         }
 
@@ -76,7 +77,7 @@ namespace Atelier2C6_102_2024
         void CalculerPlacement()
         {
             Console.WriteLine("Placement... à venir");
-            Util.Pause();
+            u.Pause();
         }
 
         //----------------------
@@ -84,7 +85,7 @@ namespace Atelier2C6_102_2024
         //---------------------
         void SaisirParametres()
         {
-            _detteInitiale = Util.SaisirUnDouble("Montant de la dette");
+            _detteInitiale = u.SaisirUnDouble("Montant de la dette");
             //Console.WriteLine("Votre dette saisie:" + dette + "$");
         }
 

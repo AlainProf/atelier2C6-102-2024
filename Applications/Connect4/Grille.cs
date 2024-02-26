@@ -1,10 +1,15 @@
-﻿using System;
+﻿//---------------------------------
+//   Fichier : Grille.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-02-26
+//---------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier2C6_102_2024.Connect4
+namespace Atelier2C6_102_2024.Applications.Connect4
 {
     internal class Grille
     {
@@ -13,15 +18,21 @@ namespace Atelier2C6_102_2024.Connect4
 
         Colonne[] _colonnes = new Colonne[NB_COLONNES];
 
-        public Grille() 
+        //----------------------------------
+        //
+        //----------------------------------
+        public Grille()
         {
-            for(int i= 0; i < NB_COLONNES; i++ )
+            for (int i = 0; i < NB_COLONNES; i++)
             {
-                _colonnes[i] = new Colonne(i);   
+                _colonnes[i] = new Colonne(i);
             }
         }
 
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void Afficher()
         {
             Console.SetCursorPosition(0, 5);
@@ -32,9 +43,12 @@ namespace Atelier2C6_102_2024.Connect4
             }
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void InsererJeton(char decision, string joueur)
         {
-            switch(decision) 
+            switch (decision)
             {
                 case 'A':
                     _colonnes[0].InsererJeton(joueur);

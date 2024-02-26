@@ -13,11 +13,11 @@ namespace Atelier2C6_102_2024
 {
     internal class Util
     {
-        public static Random rdm = new Random();
+        public Random rdm = new Random();
 
-        public static string[] tabNoms = new string[] { "Layah", "Claude", "Pierre", "Tristan", "Olivier", "Miguel", "Simon", "Xavier", "Jolan", "Samael" };
+        public string[] tabNoms = new string[] { "Layah", "Claude", "Pierre", "Tristan", "Olivier", "Miguel", "Simon", "Xavier", "Jolan", "Samael" };
 
-
+        
         public enum ERREUR_CODE
         {
             AUCUNE_ERREUR,
@@ -30,10 +30,10 @@ namespace Atelier2C6_102_2024
             ERR_JOUR_CORROMPU
         }
 
-        //----------------------
+        //----------------------------------
         //
-        //---------------------
-        public static void ViderEcran()
+        //----------------------------------
+        public void ViderEcran()
         {
             Console.Clear();
             Console.WriteLine("\x1b[3J");
@@ -42,7 +42,7 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public static void Titre(string leTitre)
+        public void Titre(string leTitre)
         {
             ViderEcran();
             Console.WriteLine(leTitre);
@@ -56,7 +56,7 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public static char SaisirChar()
+        public char SaisirChar()
         {
             ConsoleKeyInfo key;
             key = Console.ReadKey();
@@ -66,7 +66,7 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public static void Pause()
+        public void Pause()
         {
             Console.WriteLine(" appuyer une touche...");
             Console.ReadKey();
@@ -75,7 +75,7 @@ namespace Atelier2C6_102_2024
         //----------------------
         //
         //---------------------
-        public static double SaisirUnDouble(string nomDuDouble)
+        public double SaisirUnDouble(string nomDuDouble)
         {
             Console.WriteLine(nomDuDouble + ":");
             string? input = Console.ReadLine();
@@ -89,15 +89,12 @@ namespace Atelier2C6_102_2024
                 return 0.0;
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void Sep(string msg)
         {
             Console.WriteLine("------------" + msg + "------------");
         }
-        public static void SepST(string msg)
-        {
-            Console.WriteLine("______________" + msg + "*************");
-        }
-
-
     }
 }

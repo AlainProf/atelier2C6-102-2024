@@ -1,23 +1,32 @@
-﻿using System;
+﻿//---------------------------------
+//   Fichier : PartieTicTacToe.cs
+//   Auteur  : Alain Martel
+//   Date    : 2024-02-26
+//---------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier2C6_102_2024
+namespace Atelier2C6_102_2024.Applications
 {
     internal class PartieTicTacToe
     {
         char joueurCourant = 'X';
-        char[] _cases = new char[] {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        char[] _cases = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        Util u = new Util();
 
 
+        //----------------------------------
+        //
+        //----------------------------------
         public void Jouer()
         {
-        
+
             bool partieEnCours = true;
 
-            while (partieEnCours) 
+            while (partieEnCours)
             {
                 DessinerGrille();
                 ProchainCoup();
@@ -37,14 +46,17 @@ namespace Atelier2C6_102_2024
 
 
 
+        //----------------------------------
+        //
+        //----------------------------------
         void ProchainCoup()
         {
             Console.WriteLine($"Au {joueurCourant} de jouer\nQuelle case (0 à 8)");
 
             char coup = 'Q';
-            while(!coupLegal(coup))
+            while (!coupLegal(coup))
             {
-                coup = Util.SaisirChar();
+                coup = u.SaisirChar();
             }
 
             int idx = int.Parse(coup.ToString());
@@ -53,20 +65,26 @@ namespace Atelier2C6_102_2024
 
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         bool coupLegal(char coup)
         {
             if (coup != '0' && coup != '1' && coup != '2' &&
                 coup != '3' && coup != '4' && coup != '5' &&
                 coup != '6' && coup != '7' && coup != '8')
                 return false;
-            
+
             int idx = int.Parse(coup.ToString());
             if (_cases[idx] != ' ')
                 return false;
 
-            return true;    
+            return true;
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         bool CoupGagnant()
         {
             if (_cases[0] != ' ')
@@ -89,13 +107,16 @@ namespace Atelier2C6_102_2024
             return false;
         }
 
+        //----------------------------------
+        //
+        //----------------------------------
         void DessinerGrille()
         {
-            Util.Titre("Partie de TicTacToe entre Xavier et Olivier");
+            u.Titre("Partie de TicTacToe entre Xavier et Olivier");
             Console.WriteLine("\n");
 
             // Case 0
-            if (_cases[0] == ' ')  {  Console.Write("___|");  }  else    {  Console.Write("_" + _cases[0] + "_|");   }
+            if (_cases[0] == ' ') { Console.Write("___|"); } else { Console.Write("_" + _cases[0] + "_|"); }
 
             // Case 1
             if (_cases[1] == ' ')
