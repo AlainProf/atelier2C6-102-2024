@@ -8,6 +8,7 @@ using Atelier2C6_102_2024.Applications;
 using Atelier2C6_102_2024.Applications.Connect4;
 using Atelier2C6_102_2024.Classes;
 using Atelier2C6_102_2024.Explo;
+using Atelier2C6_102_2024.Applications.Poker;
 using System.ComponentModel.Design;
 
 namespace Atelier2C6_102_2024
@@ -55,7 +56,7 @@ namespace Atelier2C6_102_2024
             catch (System.Exception e)
             {
                 ExecOK = false;
-                Console.WriteLine($"Une exception est survenue: {e.ToString()}");
+                Console.WriteLine($"Une exception est survenue: {e.Message}");
             }
             finally
             {
@@ -116,6 +117,7 @@ namespace Atelier2C6_102_2024
             Console.WriteLine("E- HEritage");
             Console.WriteLine("A- tAbleau2D");
             Console.WriteLine("P- Piles et Files (Stack & Queue)");
+            Console.WriteLine("K- Poker");
 
             Console.WriteLine();
             Console.WriteLine("Q- Quitter");
@@ -187,12 +189,25 @@ namespace Atelier2C6_102_2024
                     ExecPileEtFile();
                     break;
 
+                case "K":
+                    ExecPoker();
+                    break;
+
 
                 case "Q":
                 default:
                     Environment.Exit(0);    
                     break;
             }
+        }
+
+        //----------------------------------
+        //
+        //----------------------------------
+        static void ExecPoker()
+        {
+            PartiePoker pp = new PartiePoker();
+            pp.Jouer();
         }
 
         //----------------------------------
