@@ -56,7 +56,7 @@ namespace Atelier2C6_102_2024
             catch (System.Exception e)
             {
                 ExecOK = false;
-                Console.WriteLine($"Une exception est survenue: {e.Message}");
+                Console.WriteLine($"Une exception est survenue: {e}");
             }
             finally
             {

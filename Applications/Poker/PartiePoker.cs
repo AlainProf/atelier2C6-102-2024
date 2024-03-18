@@ -10,33 +10,58 @@ namespace Atelier2C6_102_2024.Applications.Poker
     {
         const int COULEUR_TAPIS = (int)ConsoleColor.DarkGreen;
         const int COULEUR_TEXTE = 15;
+
+        MainJoueur[] _mainsJoueurs = new MainJoueur[4]; 
+
         Util u =new Util();
 
         Paquet lePaquet = new Paquet();
 
+        public PartiePoker()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                _mainsJoueurs[i] = new MainJoueur(i);
+            }
+        }
+
         public void Jouer()
         {
-            InitTable();
-
             u.Titre("Poker 2C6 102!");
+            InitTable();
+            lePaquet.Melanger();
 
-            Carte c1 = new Carte();
-            c1.Afficher(true);
-
-            Carte[] uneMain = new Carte[5];
-
-            uneMain[0] = new Carte();
-            uneMain[1] = new Carte(3, 12);
-            uneMain[2] = new Carte(2, 10);
-            uneMain[3] = new Carte(1, 8);
-            uneMain[4] = new Carte(0, 11);
-
-            /*for (int i = 0; i < uneMain.Length; i++)
+            for(int i=0; i<5; i++)
             {
-                
-                uneMain[i].Afficher(true, i);  
-            }*/
-            lePaquet.Afficher();
+                for (int j=0; j<4; j++)
+                {
+                    _mainsJoueurs[j].InitCarte(i, lePaquet.Distribuer());
+                }
+            }
+
+
+
+
+            for (int i=0; i<4; i++)
+            {
+                _mainsJoueurs[i].Afficher();    
+            }
+
+
+
+
+
+            //           lePaquet.Afficher();
+
+
+            /*            while (true)
+                        {
+                            lePaquet.Melanger();
+                            lePaquet.Afficher();
+                            Console.ReadKey();
+                        }
+            */
+
 
 
 

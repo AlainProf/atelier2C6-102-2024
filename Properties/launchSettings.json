@@ -1,8 +1,7 @@
 {
   "profiles": {
     "atelier2C6-102-2024": {
-      "commandName": "Project",
-      "commandLineArgs": "25\r\n25"
+      "commandName": "Project"
     }
   }
 }

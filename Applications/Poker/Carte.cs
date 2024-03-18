@@ -27,41 +27,61 @@ namespace Atelier2C6_102_2024.Applications.Poker
             _Valeur = val;  
         }
 
-        public void Afficher(bool modeGraphique =false, int position =0)
+        public void Afficher(bool modeGraphique =false, int posX=0, int posY=0)
         {
             ConvertVal();
             ConvertSorte();
 
             if (modeGraphique)
             {
+                Console.BackgroundColor = ConsoleColor.White;
                 switch(_Sorte)
                 {
                     case 0:
-                        Console.BackgroundColor = (ConsoleColor)COULEUR_PIQUE;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         break;
                     case 1:
-                        Console.BackgroundColor = (ConsoleColor)COULEUR_TREFLE;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         break;
                     case 2:
-                        Console.BackgroundColor = (ConsoleColor)COULEUR_CARREAU;
+                        Console.ForegroundColor = ConsoleColor.Red;
                         break;
                     case 3:
-                        Console.BackgroundColor = (ConsoleColor)COULEUR_COEUR;
+                        Console.ForegroundColor = ConsoleColor.Red;
                         break;
                 }
                 //Console.BackgroundColor = 0;
 
-                Console.SetCursorPosition(1 + (position * (LARGEUR_CARTE+1)), 4);
+                Console.SetCursorPosition(posX * (LARGEUR_CARTE + 1), posY*4 + 4);
                 Console.Write($"{_valeurTexte}    ");
-                Console.SetCursorPosition(1 + (position * (LARGEUR_CARTE + 1)), 5);
-                Console.WriteLine("  ♥  ");
-                Console.SetCursorPosition(1 + (position * (LARGEUR_CARTE + 1)), 6);
+                Console.SetCursorPosition(posX * (LARGEUR_CARTE + 1), posY*4 + 5);
+                Console.WriteLine($"  {GetSymbole()}  ");
+                Console.SetCursorPosition(posX * (LARGEUR_CARTE + 1), posY*4 +  6);
                 Console.WriteLine($"    {_valeurTexte}");
             }
             else
             {
                 Console.WriteLine($"\n{_valeurTexte} de {_sorteTexte}");
             }
+        }
+
+        char GetSymbole()
+        {
+            switch( _Sorte ) 
+            {
+                case 0:
+                    return '♠';
+                case 1:
+                    return '♣';
+                case 2:
+                    return '♦';
+               case 3:
+                    return '♥';
+                default:
+                    return '♠';
+
+            }
+
         }
 
         void ConvertSorte()
